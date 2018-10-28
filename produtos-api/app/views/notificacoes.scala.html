@@ -1,0 +1,9 @@
+@if(!flash.isEmpty) {
+	<section class="container" title="Notificações">
+		@for(key <- flash.keySet) {
+			<p class="alert alert-@key text-@key">
+				@flash.get(key)
+			</p>
+		}
+	</section>
+}
