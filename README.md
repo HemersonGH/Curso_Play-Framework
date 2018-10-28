@@ -12,3 +12,7 @@
 3. Refactor - Helpers e Bootstrap
   1. Formulários e ajudantes em scala
   2. Bootstrap em uma biblioteca
+4. Validação e notificações
+  1. Validações no controller
+  2. Refactor: ValidadorDeProdutos e Optionals
+  3. Flash messages
