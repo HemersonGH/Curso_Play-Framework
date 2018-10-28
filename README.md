@@ -1,38 +1,14 @@
 # Curso_Play-Framework
-Curso Play Framework Alura
 
-# /etc/profile: system-wide .profile file for the Bourne shell (sh(1))
-# and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).
+*   Curso Play Framework Alura
 
-if [ "`id -u`" -eq 0 ]; then
-  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-else
-  PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin"
-fi
-export PATH
+### Tópicos
 
-if [ "$PS1" ]; then
-  if [ "$BASH" ] && [ "$BASH" != "/bin/sh" ]; then
-    # The file bash.bashrc already sets the default PS1.
-    # PS1='\h:\w\$ '
-    if [ -f /etc/bash.bashrc ]; then
-      . /etc/bash.bashrc
-    fi
-  else
-    if [ "`id -u`" -eq 0 ]; then
-      PS1='# '
-    else
-      PS1='$ '
-    fi
-  fi
-fi
-
-if [ -d /etc/profile.d ]; then
-  for i in /etc/profile.d/*.sh; do
-    if [ -r $i ]; then
-      . $i
-    fi
-  done
-  unset i
-fi
-tty | egrep -q tty[1-6] && export LC_ALL=C
+1. Instalação
+2. Rotas, views, modelos e banco de dados
+  1. Formulário de produto
+  2. Modelo de produto e fábrica de formulários
+  3. Ebean e banco de dados MySQL
+3. Refactor - Helpers e Bootstrap
+  1. Formulários e ajudantes em scala
+  2. Bootstrap em uma biblioteca
