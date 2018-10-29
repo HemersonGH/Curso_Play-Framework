@@ -1,4 +1,9 @@
-GET     /produto/novo               controllers.ProdutoController.formularioDeNovoProduto
-POST    /produto/novo               controllers.ProdutoController.salvaNovoProduto
+GET  /produto/novo               controllers.ProdutoController.formularioDeNovoProduto
+POST /produto/novo               controllers.ProdutoController.salvaNovoProduto
 
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# API
+GET  /api/produtos               controllers.ApiController.comFiltros
+GET  /api/produtos/todos         controllers.ApiController.todos
+GET  /api/produtos/tipo/:tipo    controllers.ApiController.doTipo(tipo)
+
+GET  /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
