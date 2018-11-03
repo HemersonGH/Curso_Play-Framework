@@ -20,6 +20,7 @@ public class Usuario extends Model {
 	private String email;
 	@Required(message = "Você precisa fornecer uma senha!")
 	private String senha;
+	private boolean verificado;
 
 	public String getEmail() {
 		return email;
@@ -51,6 +52,14 @@ public class Usuario extends Model {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean isVerificado() {
+		return verificado;
+	}
+
+	public void setVerificado(boolean verificado) {
+		this.verificado = verificado;
 	}
 
 }
