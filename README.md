@@ -20,3 +20,7 @@
   1. API com produtos em JSON
   2. Filtro por tipo
   3. Filtro dinâmico e validação
+6. Evolutions, usuários e criptografia
+  1. Evolutions
+  2. Formulário do cliente
+  3. Validação e criptografia

@@ -18,7 +18,7 @@ public class ProdutoDAO {
 				.where()
 				.eq("codigo", codigo)
 				.findUnique();
-		return Optional.of(produto);
+		return Optional.ofNullable(produto);
 	}
 
 	public List<Produto> todos() {
