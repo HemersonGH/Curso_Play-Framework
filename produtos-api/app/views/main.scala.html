@@ -14,6 +14,10 @@
 		      <li>
 		        <a href="@routes.ProdutoController.formularioDeNovoProduto">Novo produto</a>
 		      </li>
+		      @if(request().username()) {
+			      <li><a href="@routes.UsuarioController.painel">Painel</a></li>
+			      <li><a href="@routes.UsuarioController.fazLogout">Logout</a></li>
+		      }
 		    </ul>
 		  </div>
 		</header>

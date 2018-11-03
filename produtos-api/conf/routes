@@ -4,6 +4,11 @@ POST /produto/novo                    controllers.ProdutoController.salvaNovoPro
 GET  /usuario/novo                    controllers.UsuarioController.formularioDeNovoUsuario
 POST /usuario/novo                    controllers.UsuarioController.salvaNovoUsuario
 GET  /usuario/confirma/:email/:codigo controllers.UsuarioController.confirmaUsuario(email, codigo)
+GET  /usuario/painel                  controllers.UsuarioController.painel
+
+GET  /login                           controllers.UsuarioController.formularioDeLogin
+POST /login                           controllers.UsuarioController.fazLogin
+GET  /logout                          controllers.UsuarioController.fazLogout
 
 # API
 GET  /api/produtos                    controllers.ApiController.comFiltros

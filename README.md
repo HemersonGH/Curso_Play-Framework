@@ -28,3 +28,7 @@
   1. Token de confirmação de cadastro
   2. Envio e template de email
   3. Verificação e liberação
+8. Autenticação - login e logout
+  1. Autenticação e login
+  2. Logout
+  3. Autenticação real
