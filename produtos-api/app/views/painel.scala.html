@@ -1,3 +1,24 @@
+@(usuario: Usuario)
+
 @main("Painel do usuário") {
-	<h1>Bem vindo!</h1>
+  <section class="jumbotron">
+    <h1>Painel do usuário</h1>
+    <p>Bem vindo, <strong>@usuario.getNome()</strong>! Este é seu painel. Aqui você poderá ver sua chave de acesso e também suas requisições!</p>
+  </section>
+  <section class="panel panel-default">
+    <header class="panel-heading">
+      <h2 class="panel-title">Sua chave de acesso pessoal</h2>
+    </header>
+    <p class="panel-body">
+      Sua chave de acesso é:
+      <button class="btn" data-toggle="collapse" data-target="#tokenApi"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> ver/esconder</button>
+      <strong class="token collapse" id="tokenApi">@usuario.getToken().getCodigo()</strong>
+    </p>
+    <p class="panel-body">
+      Para acessar a API, faça um GET na seguinte URL (adicionando no cabeçalho "API-Token" a sua chave de acesso): <pre>http://localhost:9000/api/produtos</pre>
+    </p>
+    <p class="panel-body">
+    		Você já fez <strong>@usuario.getAcessos().size()</strong> acessos à nossa API
+    </p>
+  </section>
 }

@@ -1,5 +1,9 @@
 package controllers;
 
+import static java.util.Calendar.YEAR;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -9,8 +13,10 @@ import autenticadores.UsuarioAutenticado;
 import daos.TokenDeCadastroDAO;
 import daos.UsuarioDAO;
 import models.EmailDeCadastro;
+import models.TokenDaApi;
 import models.TokenDeCadastro;
 import models.Usuario;
+import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -19,7 +25,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security.Authenticated;
 import validadores.ValidadorDeUsuario;
-import views.html.*;
+import views.html.formularioDeLogin;
+import views.html.formularioDeNovoUsuario;
+import views.html.painel;
 
 public class UsuarioController extends Controller {
 
@@ -34,7 +42,7 @@ public class UsuarioController extends Controller {
 	private UsuarioDAO usuarioDAO;
 	@Inject
 	private TokenDeCadastroDAO tokenDeCadastroDAO;
-	
+
 	public Result formularioDeNovoUsuario() {
 		Form<Usuario> formulario = formularios.form(Usuario.class);
 		return ok(formularioDeNovoUsuario.render(formulario));
@@ -65,20 +73,26 @@ public class UsuarioController extends Controller {
 			if (token.getUsuario().equals(usuario)) {
 				token.delete();
 				usuario.setVerificado(true);
+				TokenDaApi tokenDaApi = new TokenDaApi(usuario);
+				tokenDaApi.save();
+				usuario.setToken(tokenDaApi);
 				usuario.update();
 				flash("success", "Cadastro confirmado com sucesso!");
-				session(AUTH, usuario.getEmail());
+				insereUsuarioNaSessao(usuario);
 				return redirect(routes.UsuarioController.painel());
 			}
 		}
 		flash("danger", "Ocorreu um erro ao tentar confirmar o cadastro!");
 		return redirect(routes.UsuarioController.formularioDeLogin());
 	}
-	
+	private void insereUsuarioNaSessao(Usuario usuario) {
+		session(AUTH, usuario.getToken().getCodigo());
+	}
+
 	public Result formularioDeLogin() {
 		return ok(formularioDeLogin.render(formularios.form()));
 	}
-	
+
 	public Result fazLogin() {
 		DynamicForm formulario = formularios.form().bindFromRequest();
 		String email = formulario.get("email");
@@ -87,7 +101,7 @@ public class UsuarioController extends Controller {
 		if (possivelUsuario.isPresent()) {
 			Usuario usuario = possivelUsuario.get();
 			if (usuario.isVerificado()) {
-				session(AUTH, usuario.getEmail());
+				insereUsuarioNaSessao(usuario);
 				flash("success", "Login foi efetuado com sucesso!");
 				return redirect(routes.UsuarioController.painel());
 			}
@@ -100,21 +114,19 @@ public class UsuarioController extends Controller {
 		}
 		return redirect(routes.UsuarioController.formularioDeLogin());
 	}
-	
+
 	@Authenticated(UsuarioAutenticado.class)
 	public Result painel() {
-		return ok(painel.render());
+		String codigo = session(AUTH);
+		Usuario usuario = usuarioDAO.comToken(codigo).get();
+		return ok(painel.render(usuario));
 	}
-	
+
 	@Authenticated(UsuarioAutenticado.class)
 	public Result fazLogout() {
 		session().clear();
 		flash("success", "Logout efetuado com sucesso!");
 		return redirect(routes.UsuarioController.formularioDeLogin());
 	}
-	
-	
-	
-	
-	
+
 }

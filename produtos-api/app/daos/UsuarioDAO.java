@@ -20,4 +20,9 @@ public class UsuarioDAO {
 		return Optional.ofNullable(usuario);
 	}
 
+	public Optional<Usuario> comToken(String codigo) {
+		Usuario usuario = usuarios.where().eq("token.codigo", codigo).findUnique();
+		return Optional.ofNullable(usuario);
+	}
+
 }
