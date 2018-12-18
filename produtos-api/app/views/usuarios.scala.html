@@ -1,0 +1,45 @@
+@(usuarios: List[Usuario])
+
+@numeroDeAcessos(usuario: Usuario) = @{
+	usuario.getAcessos().size()
+}
+
+@ultimoAcesso(usuario: Usuario) = @{
+	var ultimo = numeroDeAcessos(usuario)-1
+	if (ultimo >= 0) {
+		usuario.getAcessos().get(ultimo).getData()
+	}
+}
+@main("Lista de usuários") {
+  <section class="panel panel-default">
+    <header class="panel-heading">
+      <h2 class="panel-title">Lista de usuários</h2>
+    </header>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Nome</td>
+            <td>Email</td>
+            <td>Token</td>
+            <td>Acessos</td>
+            <td>Último acesso</td>
+          </tr>
+        </thead>
+        <tbody>
+          @for(usuario <- usuarios) {
+         <tr>
+            <td>@usuario.getId()</td>
+            <td>@usuario.getNome()</td>
+            <td>@usuario.getEmail()</td>
+            <td>@usuario.getToken().getCodigo()</td>
+            <td>@numeroDeAcessos(usuario)</td>
+            <td>@ultimoAcesso(usuario)</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

@@ -1,0 +1,39 @@
+@(produtos: List[Produto])
+
+@formataEmReais(preco: Double) = @{
+	String.format("R$%.2f", preco)
+}
+@main("Lista de produtos") {
+  <section class="panel panel-default">
+    <header class="panel-heading">
+      <h2 class="panel-title">Lista de produtos</h2>
+    </header>
+    <div class="panel-body">
+      <a class="btn btn-info" href="@routes.ProdutoController.formularioDeNovoProduto">Criar novo produto</a>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Título</td>
+            <td>Código</td>
+            <td>Tipo</td>
+            <td>Descrição</td>
+            <td>Preço</td>
+          </tr>
+        </thead>
+        <tbody>
+          @for(produto <- produtos) {
+          <tr>
+            <td>@produto.getId()</td>
+            <td>@produto.getTitulo()</td>
+            <td>@produto.getCodigo()</td>
+            <td>@produto.getTipo()</td>
+            <td>@produto.getDescricao()</td>
+            <td>@formataEmReais(produto.getPreco())</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}
